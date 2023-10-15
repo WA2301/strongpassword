@@ -1,4 +1,4 @@
 #!/bin/sh
 
-pyinstaller -F strongpassword.py 
+pyinstaller -F strongpwd.py 
 rm -rf build *.spec
