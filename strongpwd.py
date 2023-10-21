@@ -27,17 +27,23 @@ def generate_password(salt, password):
 if __name__ == "__main__":
     parser = argparse.ArgumentParser(description="Generate password with special data.")
     parser.add_argument("--salt", help="Input the salt.")
+    parser.add_argument("--password", help="Input the password in plain.")
     args = parser.parse_args()
 
     if args.salt :
-        password1 = getpass.getpass("Input secret password please : ")
-        password2 = getpass.getpass("Input secret password again  : ")
-        if password1 != password2 :
-            print("Secret password is NOT matched !")
-        else:
-            password = generate_password(args.salt,password1)
-            print("Password: %s" %password)
+        if args.password :
+            password1 = args.password
+        else :
+            password1 = getpass.getpass("Input secret password please : ")
+            password2 = getpass.getpass("Input secret password again  : ")
+            if password1 != password2 :
+                print("Secret password is NOT matched !")
+                exit()
+        
+        password = generate_password(args.salt,password1)
+        print("Password: %s" %password)
 
     else :
         print("Usage: ")
-        print("    ./strongpwd --salt test@example.com   # Generate a strong password.")
+        print("    ./strongpwd --salt test@example.com                     # Generate a strong password.")
+        print("    ./strongpwd --salt test@example.com --password abc123   # For the f**k shell.")
