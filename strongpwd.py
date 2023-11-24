@@ -19,8 +19,8 @@ import base64
 
 def generate_password(salt, password):
     # 派生方式与bitcoin HD wallt 助记词派生方式一样，同为Sha512，同为2048次
-    seed = hashlib.pbkdf2_hmac('sha512', password.encode('utf-8'), salt.encode('utf-8'), 2048,dklen=14) # 6 9 12 15 18 , 此处14故意不取整，使最终base64编码后含=
-                                                                                                        # 密码熵值：2^112
+    seed = hashlib.pbkdf2_hmac('sha512', password.encode('utf-8'), salt.encode('utf-8'), 2048,dklen=11) # 6 9 12 15 18 , 此处故意不取整，使最终base64编码后含=
+                                                                                                        # 密码熵值：2^88
     result = base64.b64encode(bytes.fromhex(seed.hex())).decode()
     return result
 
